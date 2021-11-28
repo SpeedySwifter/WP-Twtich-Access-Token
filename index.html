@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>get Twitch Token</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <div class="jumbotron">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="text-center">Get Token</h1>
+				<input type="text" id="clientID" class="form-control" placeholder="ClientID">
+				<input type="text" id="clientSec" class="form-control" placeholder="Client-Secret">
+
+              <p class="text-center" id="callbackdata">Deine Daten: </p>
+              <p>&nbsp;</p>
+              <p class="text-center"><a class="btn btn-primary btn-lg" href="#" onClick="getToken()" role="button">Gib mir die Token-Daten</a> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.3.1.js"></script>
+
+	   <script>
+		  function getToken(){
+			  	let clientid = $('#clientID').val();
+			  console.log(clientid);
+			  	let clientsec = $('#clientSec').val();
+			  console.log(clientsec);
+				$.ajax({
+					type: "POST",
+					url: 'https://id.twitch.tv/oauth2/token?client_id='+clientid+'&client_secret='+clientsec+'&grant_type=client_credentials',
+					data: {
+						},
+					success: function(data) {
+						console.log(data);
+						$('#callbackdata').text('access_token: '+data.access_token+ ' token_type: '+ data.token_type);
+					}
+				});
+
+		  };
+	  </script>
+  </body>
+</html>
